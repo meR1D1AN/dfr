@@ -1,7 +1,7 @@
-from rest_framework import viewsets, generics
+from rest_framework import generics, viewsets
 
-from vehicle.serializers import CarSerializer, MotoSerializer
 from vehicle.models import Car, Moto
+from vehicle.serializers import CarSerializer, MotoSerializer
 
 
 class CarViewSet(viewsets.ModelViewSet):

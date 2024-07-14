@@ -1,10 +1,8 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from lms.views import (
-    CourseViewSet,
-    LessonListCreateAPIView,
-    LessonRetrieveUpdateDestroyAPIView,
-)
+
+from lms.views import (CourseViewSet, LessonListCreateAPIView,
+                       LessonRetrieveUpdateDestroyAPIView)
 
 router = DefaultRouter()
 router.register(r"courses", CourseViewSet)
