@@ -16,7 +16,9 @@ class Course(models.Model):
         **NULLABLE,
     )
     description = models.TextField(
-        verbose_name="Описание курса", help_text="Укажите описание курса", **NULLABLE
+        verbose_name="Описание курса",
+        help_text="Укажите описание курса",
+        **NULLABLE
     )
 
     def __str__(self):
@@ -42,7 +44,9 @@ class Lesson(models.Model):
         help_text="Укажите название урока",
     )
     description = models.TextField(
-        verbose_name="Описание урока", help_text="Укажите описание урока", **NULLABLE
+        verbose_name="Описание урока",
+        help_text="Укажите описание урока",
+        **NULLABLE
     )
     photo = models.ImageField(
         upload_to="lms/lesson_photos",
@@ -51,7 +55,9 @@ class Lesson(models.Model):
         **NULLABLE,
     )
     link_video = models.URLField(
-        verbose_name="Ссылка на видео", help_text="Укажите ссылку на видео", **NULLABLE
+        verbose_name="Ссылка на видео",
+        help_text="Укажите ссылку на видео",
+        **NULLABLE
     )
 
     def __str__(self):
