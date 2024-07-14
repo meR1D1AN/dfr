@@ -1,6 +1,12 @@
 from django.urls import path
-from vehicle.views import (CarViewSet, MotoCreateAPIView, MotoListAPIView, MotoRetrieveAPIView,
-                           MotoUpdateAPIView, MotoDestroyAPIView)
+from vehicle.views import (
+    CarViewSet,
+    MotoCreateAPIView,
+    MotoListAPIView,
+    MotoRetrieveAPIView,
+    MotoUpdateAPIView,
+    MotoDestroyAPIView,
+)
 from vehicle.apps import VehicleConfig
 from rest_framework.routers import DefaultRouter
 
