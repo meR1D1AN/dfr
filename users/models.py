@@ -20,7 +20,10 @@ class User(AbstractUser):
         **NULLABLE,
     )
     city = models.CharField(
-        max_length=100, verbose_name="Город", help_text="Укажите город", **NULLABLE
+        max_length=100,
+        verbose_name="Город",
+        help_text="Укажите город",
+        **NULLABLE
     )
     avatar = models.ImageField(
         upload_to="users/avatars",
