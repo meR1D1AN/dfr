@@ -12,9 +12,5 @@ app_name = "lms"
 urlpatterns = [
     path("", include(router.urls)),
     path("lessons/", LessonListCreateAPIView.as_view(), name="lesson_list_create"),
-    path(
-        "lessons/<int:pk>/",
-        LessonRetrieveUpdateDestroyAPIView.as_view(),
-        name="lesson_detail",
-    ),
+    path("lessons/<int:pk>/", LessonRetrieveUpdateDestroyAPIView.as_view(), name="lesson_detail", ),
 ]

@@ -19,14 +19,6 @@ class Course(models.Model):
         verbose_name="Описание курса", help_text="Укажите описание курса", **NULLABLE
     )
 
-    # owner = models.ForeignKey(
-    #     User,
-    #     on_delete=models.SET_NULL,
-    #     verbose_name="Владелец курса",
-    #     help_text="Укажите владельца курса",
-    #     **NULLABLE,
-    # )
-
     def __str__(self):
         return f"Курс {self.name}"
 
@@ -61,14 +53,6 @@ class Lesson(models.Model):
     link_video = models.URLField(
         verbose_name="Ссылка на видео", help_text="Укажите ссылку на видео", **NULLABLE
     )
-
-    # owner = models.ForeignKey(
-    #     User,
-    #     on_delete=models.SET_NULL,
-    #     verbose_name="Владелец урока",
-    #     help_text="Укажите владельца урока",
-    #     **NULLABLE,
-    # )
 
     def __str__(self):
         return f"Урок {self.name}"
