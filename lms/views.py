@@ -9,6 +9,7 @@ from users.permissions import IsModer, IsOwner
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         if self.action == "create":
