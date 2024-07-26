@@ -25,6 +25,7 @@ class Course(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Владелец курса",
         help_text="Укажите владельца курса",
+        related_name="owned_courses",
         **NULLABLE,
     )
 
@@ -67,6 +68,7 @@ class Lesson(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Владелец урока",
         help_text="Укажите владельца урока",
+        related_name="owned_lessons",
         **NULLABLE,
     )
 
