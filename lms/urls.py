@@ -15,4 +15,5 @@ urlpatterns = [
     path("lessons/", LessonListCreateAPIView.as_view(), name="lesson_list_create"),
     path("lessons/<int:pk>/", LessonRetrieveUpdateAPIView.as_view(), name="lesson_detail"),
     path("lessons/delete/<int:pk>/", LessonDestroyAPIView.as_view(), name="lesson_delete"),
+    path("subscriptions/", LessonDestroyAPIView.as_view(), name="subscription"),
 ]

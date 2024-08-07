@@ -1,8 +1,10 @@
-from rest_framework import generics, viewsets
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, viewsets, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
-from lms.models import Course, Lesson
-from lms.serializers import CourseSerializer, LessonSerializer
+from lms.models import Course, Lesson, Subscription
+from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from users.permissions import IsModer, IsOwner
 
 
@@ -63,3 +65,22 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
         if self.request.user.groups.filter(name="moders").exists():
             return Lesson.objects.all()
         return Lesson.objects.filter(owner=self.request.user)
+
+
+class SubscriptionAPIView(generics.GenericAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        course_id = request.data.get("course_id")
+        course = get_object_or_404(Course, id=course_id)
+
+        subscription, created = Subscription.objects.get_or_create(user=user, course=course)
+
+        if not created:
+            subscription.delete()
+            return Response({"message": "Подписка удалена"}, status=status.HTTP_200_OK)
+
+        return Response({"message": "Подписка добавлена"}, status=status.HTTP_201_CREATED)
