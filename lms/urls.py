@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from lms.views import (CourseViewSet, LessonListCreateAPIView,
                        LessonRetrieveUpdateAPIView,
-                       LessonDestroyAPIView)
+                       LessonDestroyAPIView, SubscriptionAPIView)
 
 router = DefaultRouter()
 router.register(r"courses", CourseViewSet)
@@ -15,5 +15,5 @@ urlpatterns = [
     path("lessons/", LessonListCreateAPIView.as_view(), name="lesson_list_create"),
     path("lessons/<int:pk>/", LessonRetrieveUpdateAPIView.as_view(), name="lesson_detail"),
     path("lessons/delete/<int:pk>/", LessonDestroyAPIView.as_view(), name="lesson_delete"),
-    path("subscriptions/", LessonDestroyAPIView.as_view(), name="subscription"),
+    path("subscriptions/", SubscriptionAPIView.as_view(), name="subscription"),
 ]
