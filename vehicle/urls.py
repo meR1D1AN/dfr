@@ -2,9 +2,14 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from vehicle.apps import VehicleConfig
-from vehicle.views import (CarViewSet, MotoCreateAPIView, MotoDestroyAPIView,
-                           MotoListAPIView, MotoRetrieveAPIView,
-                           MotoUpdateAPIView)
+from vehicle.views import (
+    CarViewSet,
+    MotoCreateAPIView,
+    MotoDestroyAPIView,
+    MotoListAPIView,
+    MotoRetrieveAPIView,
+    MotoUpdateAPIView,
+)
 
 app_name = VehicleConfig.name
 

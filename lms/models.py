@@ -18,7 +18,9 @@ class Course(models.Model):
         **NULLABLE,
     )
     description = models.TextField(
-        verbose_name="Описание курса", help_text="Укажите описание курса", **NULLABLE
+        verbose_name="Описание курса",
+        help_text="Укажите описание курса",
+        **NULLABLE
     )
     owner = models.ForeignKey(
         AUTH_USER_MODEL,

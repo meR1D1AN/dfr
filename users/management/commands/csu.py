@@ -1,7 +1,8 @@
-from django.core.management import BaseCommand
-from pathlib import Path
-from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+from django.core.management import BaseCommand
+from dotenv import load_dotenv
 
 from users.models import User
 
@@ -19,7 +20,7 @@ class Command(BaseCommand):
             is_active=True,
             is_superuser=True,
             is_staff=True,
-            phone="+79994561236"
+            phone="+79994561236",
         )
         user.set_password(os.getenv("EMAIL_PASS"))
         user.save()
