@@ -31,6 +31,7 @@ class CourseSerializer(serializers.ModelSerializer):
             "photo",
             "lessons_count",
             "lessons",
+            "price",
             "is_subscribed",
             "owner",
         ]

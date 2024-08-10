@@ -3,9 +3,10 @@ from rest_framework import generics, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from lms.models import Course, Lesson, Subscription
+from lms.models import Course, Lesson, Subscription, Payment
 from lms.paginators import StandardResultsSetPagination
 from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from lms.services import create_stripe_product, create_stripe_price, create_stripe_checkout_session
 from users.permissions import IsModer, IsOwner
 
 
@@ -87,3 +88,34 @@ class SubscriptionAPIView(generics.GenericAPIView):
             return Response({"message": "Подписка удалена"}, status=status.HTTP_200_OK)
 
         return Response({"message": "Подписка добавлена"}, status=status.HTTP_201_CREATED)
+
+
+class CreatePaymentView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        course_id = request.data.get('course_id')
+        course = get_object_or_404(Course, id=course_id)
+
+        # Создаем продукт в Stripe
+        product = create_stripe_product(course.name)
+
+        # Создаем цену в Stripe (цена должна быть в копейках)
+        price = create_stripe_price(product.id, int(course.price * 100))
+
+        # Создаем сессию для оплаты
+        success_url = f"{request.build_absolute_uri('/')}"
+        cancel_url = f"{request.build_absolute_uri('/')}"
+        session = create_stripe_checkout_session(price.id, success_url, cancel_url)
+
+        # Сохраняем информацию о платеже в базе данных
+        payment = Payment.objects.create(
+            user=request.user,
+            course=course,
+            stripe_product_id=product.id,
+            stripe_price_id=price.id,
+            stripe_session_id=session.id,
+            payment_url=session.url
+        )
+
+        return Response({"payment_url": session.url}, status=status.HTTP_201_CREATED)
