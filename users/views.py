@@ -36,8 +36,9 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 
-from users.models import User
-from users.serializers import UserSerializer
+from users.models import User, Donat
+from users.serializers import UserSerializer, DonatSerializer
+from users.services import create_stripe_price, create_stripe_session
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -50,3 +51,15 @@ class UserCreateAPIView(CreateAPIView):
         user.set_password(user.password)
         user.save()
 
+
+class DonatCreateAPIView(CreateAPIView):
+    serializer_class = DonatSerializer
+    queryset = Donat.objects.all()
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user_link=self.request.user)
+        price = create_stripe_price(payment.amount)
+        session_id, payment_user_link = create_stripe_session(price)
+        payment.session_id = session_id
+        payment.link = payment_user_link
+        payment.save()
