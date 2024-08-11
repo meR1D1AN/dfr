@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,3 +155,9 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 
+CELERY_BEAT_SCHEDULE = {
+    "deactive_inactive_users": {
+        "task": "lms.tasks.deactive_inactive_users",
+        "schedule": crontab(hour=0, minute=0),  # Ежедневно в полночь
+    },
+}
