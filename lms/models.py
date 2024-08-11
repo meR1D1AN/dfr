@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {"null": True, "blank": True}
@@ -57,6 +58,13 @@ class Lesson(models.Model):
     link_video = models.URLField(
         verbose_name="Ссылка на видео",
         help_text="Укажите ссылку на видео",
+        **NULLABLE
+    )
+    likes = models.ManyToManyField(
+        to=settings.AUTH_USER_MODEL,
+        related_name="users_likes",
+        verbose_name="Лайки",
+        help_text="Укажите лайки",
         **NULLABLE
     )
 
