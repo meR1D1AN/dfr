@@ -7,6 +7,7 @@ from lms.models import Course, Lesson, Subscription, Payment
 from lms.paginators import StandardResultsSetPagination
 from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from lms.services import create_stripe_product, create_stripe_price, create_stripe_checkout_session
+from lms.tasks import send_course_update_notification
 from users.permissions import IsModer, IsOwner
 
 
@@ -32,6 +33,10 @@ class CourseViewSet(viewsets.ModelViewSet):
         if self.request.user.groups.filter(name="moders").exists():
             return Course.objects.all()
         return Course.objects.filter(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        send_course_update_notification.delay(instance.id)
 
 
 class LessonListCreateAPIView(generics.ListCreateAPIView):
