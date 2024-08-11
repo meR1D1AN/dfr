@@ -12,6 +12,6 @@ class YouTubeValidators:
             and not url.startswith("https://www.youtube.com/")
             and not url.startswith("https://youtube.com/")
         ):
-            raise serializers.ValidationError(
-                {self.field: "Можно добавлять ссылки только с youtube"}
-            )
+            raise serializers.ValidationError({
+                self.field: "Можно добавлять ссылки только с youtube"
+            })
