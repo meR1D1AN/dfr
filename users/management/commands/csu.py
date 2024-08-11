@@ -13,7 +13,7 @@ load_dotenv(dotenv_path=dot_env)
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user = User.objects.create(
-            email="a@a.a",
+            email="a@a.ru",
             first_name="Mer1d1an",
             last_name="Nikita",
             is_staff=True,

@@ -159,3 +159,6 @@ CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 #         "schedule": timedelta(seconds=10)
 #     },
 # }
+
+URL_TG = "https://api.telegram.org/bot"
+TOKEN_BOT = os.getenv("BOT_TOKEN")

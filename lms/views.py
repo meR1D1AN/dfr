@@ -21,8 +21,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             lms.task.send_email_like.delay()
         else:
             lesson.likes.add(request.user)
-            lms.task.send_email_like.delay()
-        serializer = self.get_serializer(lesson.owner.email)
+            lms.task.send_email_like.delay(lesson.owner.email)
+        serializer = self.get_serializer(lesson)
         return Response(data=serializer.data)
 
 
