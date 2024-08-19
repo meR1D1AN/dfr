@@ -22,8 +22,9 @@ eventlet = "^0.36.1"
 isort = "^5.13.2"
 black = "^24.4.2"
 ipython = "^8.26.0"
-pillow = "^10.4.0"
 stripe = "^10.7.0"
+pillow = "^10.4.0"
+
 
 [build-system]
 requires = ["poetry-core"]
